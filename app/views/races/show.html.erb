@@ -1,0 +1,52 @@
+<h3><%= image_tag("race_32.png")%> The <%= @race.name %> Race</h3>
+
+<% if @race.status_NEW? %>
+  <%= form_with model: [@trail, @race] do |form| %>
+    <%= form.hidden_field :status, value: :STARTED %>
+    <%= form.submit "Start Race"%>
+  <% end %>
+<% end %>
+
+<% if flash[:alert] %>
+  <p style="color:red;"><%= flash[:alert] %></p>
+<% end %>
+
+<% if @race.status_STARTED? %>
+  <%= form_with model: [@trail, @race] do |form| %>
+    <%= form.hidden_field :status, value: :FINISHED %>
+    <%= form.submit "Finish Race"%>
+  <% end %>
+<% end %>
+
+<article>
+<h4>Details:</h4>
+<p>
+Status: <%= @race.status %> <br>
+Start Date: <%= @race.start.to_date %> <br>
+Start Time: <%= @race.start.strftime("%I:%M%p") %> <br>
+End Time: <%= @race.expected_end.strftime("%I:%M%p") %> <br>
+Duration (hours): <%= @race.duration %>
+</p>
+<%= link_to "Edit Details", edit_trail_race_path([@trail, @race]) %> | 
+<%= link_to "Remove", trail_race_path([@trail, @race]), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+</article>
+
+<article>
+<% if @race.winner.present? %>
+  <h4>Winner</h4>
+  Runner #<%= @winning_run.id %>: <%= @winner.name.capitalize %>
+<% end %>
+<h4>Participants</h4>
+<% if @race.registered_runs.present? %> 
+  <ul>
+  <% @race.registered_runs.each do |run| %> 
+    <li> <%= run.person.name.capitalize %> </li>
+  <% end %> 
+  </ul>
+<% else %> 
+  None yet!
+<% end %> 
+</article>

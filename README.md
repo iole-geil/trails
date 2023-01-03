@@ -1,24 +1,75 @@
-# README
+# Trails Exercise [![CI](https://github.com/scrambledeggs/iole-trails/actions/workflows/ci.yml/badge.svg)](https://github.com/scrambledeggs/iole-trails/actions/workflows/ci.yml)
+## Feature 1
+### Requirements
+3 models
+ - [x] Person (people table)
+ - [x] Trail (trails table)
+ - [x] Practice (practices tables)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Person model
+ - [x] has age, body-build (slim, fit, large)
+ - [x] can `start` *practice* on any *trail*
+ - given he/she has passed the criteria of a trail
+ - given he/she is not already starting a practice on a trail
+ - [x] can `finish` *practice* on a *trail*
+ - given he/she is starting this particular trail
+ - [x] can see all trails finished
+ - [x] can see all uncompleted trails
 
-Things you may want to cover:
+Trail model
+ - [x] has pass criteria depending on age, body-build
+ - [x] can see people who have finished this trail
+ - [x] can see people who have started the trail
+ - [x] can see people who can start the trail
 
-* Ruby version
+Practice model
+ - [x] has the status field of person/trail
 
-* System dependencies
+### Diagram
+![Diagram](src/trails_diagram.png)
 
-* Configuration
+## Feature 2
 
-* Database creation
+### Requirements
+2 models
+- [x] Race (table races)
+- [x] Run (table runs)
 
-* Database initialization
+Race model
+- [x] belongs to a *Trail*
+- [x] can `register` People to join
+- [x] can `start`/`end` a race
+  - [x] State is manually changed (new → started, started → finished)
+- [x] can't start if less than 2 People registered
+- [x] when a Race finishes, assign random duration and status (finished or unfinished) for the racers
+  - [x] declare the fastest runner as winner
+- [x] Can only have 1 winner
 
-* How to run the test suite
+Run model
+- [x] States: Registered and Dropped (manually changed), Finished and Unfinished (randomly assigned when Race has ended)
 
-* Services (job queues, cache servers, search engines, etc.)
+Rules
+- [x] Trail can have multiple Races but should have different time slots
+- [x] Person should have a finished Practice for the Trail before becoming eligible to register for a Race
+- [x] Person can only register for a Race once.
+- [x] Person cannot register for a Race if there is an ongoing Practice.
+- [x] Person cannot also start a Practice if there is an ongoing Race.
+- [x] Person cannot register when Race is already starting or finished
+- [x] Person can register for another Race:
+  - [x] For the same Trail (since none of the Races per Trail would overlap)
+  - [x] For another Trail but should not overlap with currently registered Race
 
-* Deployment instructions
+Additional
+- [x] Add view on Trail for races list
+- [x] Add view on Person for races list
+- [x] Add view for Races via navbar
+- [x] Don't update Race details if runners have already registered
 
-* ...
+### Diagram
+![Diagram 2](src/trails_diagram_2.png)
+
+
+### Attributions
+- [User icons](https://www.flaticon.com/free-icons/user) created by Freepik - Flaticon
+- [Road icons](https://www.flaticon.com/free-icons/road) created by Smashicons - Flaticon
+- [Race icons](https://www.flaticon.com/free-icons/race) created by Good Ware - Flaticon
