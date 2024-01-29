@@ -1,0 +1,37 @@
+<h3><%= image_tag("trail_32.png")%> The <%= @trail.name %> Trail</h3>
+
+<div class="row">
+  <div class="column_left">
+    <h3>List of Races</h3>
+  </div>
+  <div class="column_right">
+    <%= button_to "New Race", new_trail_race_path, method: :get %>
+  </div>
+</div>
+
+<% if @races.present? %>
+<table>
+  <thead>
+    <tr>
+      <th>Race Name</th>
+      <th>Status</th>
+      <th>Start Date</th>
+      <th>Start Time</th>
+    </tr>
+  </thead>
+<tbody>
+  <% @races.order(:start).each do |race| %>
+  <tr>
+    <td><%= image_tag("race.png")%> <%= link_to race.name, [@trail, race] %></td>
+    <td><%= status_tag(race.status) %></td>
+    <td><%= race.start.to_date %></td>
+    <td><%= race.start.strftime("%I:%M%p") %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+<% else %>
+<p>None yet!</p>
+<% end %>
+
+<%= link_to "Back", trail_path(@trail) %>

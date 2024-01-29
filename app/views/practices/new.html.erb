@@ -1,0 +1,17 @@
+<h3>Start a Practice for: <%= @person.name %></h3>
+
+
+<%= form_with model: [@person, @person.practices.build] do |form| %>
+  <div>
+    <%= form.label "Select a trail" %>
+    <%= form.select :trail_id, trail_options(@person)%>
+  </div>
+  <% @practice.errors.full_messages.each do |message| %>
+    <div class="form_error"><%= message %></div>
+  <% end %>
+  <div>
+    <%= form.submit "Start Practice"%>
+  </div>
+<% end %>
+
+<%= link_to "Back", person_path(@person) %>

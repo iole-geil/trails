@@ -1,0 +1,10 @@
+<h3>People eligible for the <%= @trail.name %> Trail</h3>
+<article class="cards">
+<% @eligible_people.each do |person| %>
+  <article class="card">
+    <%= image_tag("user.png")%> <%= link_to person.name, person %>
+  </article>
+<% end %>
+</article>
+
+<%= link_to "Back", trail_path(@trail) %>

@@ -1,0 +1,17 @@
+<h3>Register to a Race for: <%= @person.name %></h3>
+
+
+<%= form_with model: [@person, @person.runs.build] do |form| %>
+  <div>
+    <%= form.label "Select a Race" %>
+    <%= form.select :race_id, @races.collect {|race| [race.name, race.id]} %>
+  </div>
+  <% @run.errors.full_messages.each do |message| %>
+    <div class="form_error"><%= message %></div>
+  <% end %>
+  <div>
+    <%= form.submit "Register"%>
+  </div>
+<% end %>
+
+<%= link_to "Back", person_path(@person) %>
